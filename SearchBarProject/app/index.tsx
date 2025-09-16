@@ -1,5 +1,5 @@
 import { Text, View } from "react-native";
-
+import Search from "./components/Search";
 export default function Index() {
   return (
     <View
@@ -9,6 +9,7 @@ export default function Index() {
         alignItems: "center",
       }}
     >
+      <Search />
       <Text>Edit app/index.tsx to edit this screen.</Text>
     </View>
   );
