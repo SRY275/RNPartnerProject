@@ -1,39 +1,67 @@
-import * as React from 'react';
-import { StyleSheet } from 'react-native';
-import { Searchbar } from 'react-native-paper';
+import * as React from "react";
+import { FlatList, StyleSheet, Text, View } from "react-native";
+import { Searchbar } from "react-native-paper";
 
-const Search = () => {
-  const [searchQuery, setSearchQuery] = React.useState('');
+const DATA = [
+  "Apple",
+  "Banana",
+  "Orange",
+  "Mango",
+  "Pineapple",
+  "Strawberry",
+  "Watermelon",
+];
+
+export default function SearchableList() {
+  const [query, setQuery] = React.useState("");
+  const [filteredData, setFilteredData] = React.useState(DATA); // ✅ show full list first
+
+  const onChangeSearch = (text: string) => {
+    setQuery(text);
+    if (text.trim() === "") {
+      setFilteredData(DATA); // reset to full list
+    } else {
+      const results = DATA.filter(item =>
+        item.toLowerCase().includes(text.toLowerCase())
+      );
+      setFilteredData(results);
+    }
+  };
 
   return (
-    <Searchbar
-        placeholder="Search"
-        onChangeText={setSearchQuery}
-        value={searchQuery}
-    />
+    <View style={styles.container}>
+      <Searchbar
+        placeholder="Search fruits..."
+        onChangeText={onChangeSearch}
+        value={query}
+        style={styles.searchbar}
+      />
+
+      <FlatList
+        data={filteredData}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item }) => (
+          <Text style={styles.item}>{item}</Text>
+        )}
+      />
+    </View>
   );
-};
-
-export default Search;
-
+}
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fff',
-    paddingTop: 10,
+    flex: 1,             // ✅ ensures list fills screen
+    padding: 16,
+    backgroundColor: "#fff",
   },
-  searchBarContainer: {
-    backgroundColor: 'transparent',
-    borderBottomColor: 'transparent',
-    borderTopColor: 'transparent',
+  searchbar: {
+    marginBottom: 12,
+    borderRadius: 12,
   },
-  inputContainer: {
-    backgroundColor: '#eee',
-    borderRadius: 20,
-    height: 40,
+  item: {
+    fontSize: 18,
+    paddingVertical: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ddd",
   },
-  input: {
-    color: '#333',
-    fontSize: 16,
-  },
-})
+});

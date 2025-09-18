@@ -1,23 +1,10 @@
-import { StyleSheet, Text, View } from "react-native";
-import Search from "./components/Search";
-export default function Index() {
+import { Provider as PaperProvider } from "react-native-paper";
+import SearchableList from "./components/Search";
+
+export default function App() {
   return (
-    <View >
-      <Search />
-      <Text></Text>
-    </View>
+    <PaperProvider>
+      <SearchableList />
+    </PaperProvider>
   );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-    },
-
-    searchStyle: {
-        width: 30,
-        height: 50,
-    },
-})
