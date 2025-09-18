@@ -14,12 +14,12 @@ const DATA = [
 
 export default function SearchableList() {
   const [query, setQuery] = React.useState("");
-  const [filteredData, setFilteredData] = React.useState(DATA); // ✅ show full list first
+  const [filteredData, setFilteredData] = React.useState(DATA); 
 
   const onChangeSearch = (text: string) => {
     setQuery(text);
     if (text.trim() === "") {
-      setFilteredData(DATA); // reset to full list
+      setFilteredData(DATA); 
     } else {
       const results = DATA.filter(item =>
         item.toLowerCase().includes(text.toLowerCase())
@@ -50,7 +50,7 @@ export default function SearchableList() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,             // ✅ ensures list fills screen
+    flex: 1,            
     padding: 16,
     backgroundColor: "#fff",
   },
